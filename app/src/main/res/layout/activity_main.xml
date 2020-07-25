@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/menu_main"
+                app:navigationIcon="@drawable/ic_baseline_pets_24"
+                android:background="?attr/colorPrimary">
+
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:rowCount="1"
+                    android:columnCount="3">
+
+                    <TextView
+                        android:id="@+id/titleApp"
+                        android:layout_width="220dp"
+                        android:layout_height="match_parent"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:text="@string/app_name"/>
+
+
+                    <ImageView
+                        android:id="@+id/star"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/start"
+                        android:padding="4dp"
+                        android:layout_row="0"
+                        android:layout_column="1"/>
+
+                    <TextView
+                        android:id="@+id/fav"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="25sp"
+                        android:textColor="@color/black"
+                        android:layout_alignLeft="@+id/myImageView"
+                        android:layout_alignTop="@+id/myImageView"
+                        android:layout_alignRight="@+id/myImageView"
+                        android:layout_alignBottom="@+id/myImageView"
+                        android:text="1"/>
+
+
+                </GridLayout>
+
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+        <!-- View pager to swipe views -->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize">
+
+
+            </com.google.android.material.tabs.TabLayout>
+
+        </androidx.viewpager.widget.ViewPager>
+
+
+
+    </LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorFab"
+        app:borderWidth="0dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
