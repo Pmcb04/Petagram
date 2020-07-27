@@ -3,12 +3,19 @@ package com.example.petagram;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.jetbrains.annotations.NotNull;
+
 class Animal implements Parcelable {
 
+    private int id;
     private int imageDog;
     private String nameDog;
     private int rateDog;
     private boolean like;
+
+    public Animal() {
+
+    }
 
     public Animal(int imageDog, String nameDog, int rateDog) {
         this.imageDog = imageDog;
@@ -37,6 +44,9 @@ class Animal implements Parcelable {
         }
     };
 
+
+    public int getId() { return id;}
+
     public int getImageDog() {
         return imageDog;
     }
@@ -51,8 +61,36 @@ class Animal implements Parcelable {
 
     public boolean isLike() { return like; }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setImageDog(int imageDog) {
+        this.imageDog = imageDog;
+    }
+
+    public void setNameDog(String nameDog) {
+        this.nameDog = nameDog;
+    }
+
+    public void setRateDog(int rateDog) {
+        this.rateDog = rateDog;
+    }
+
     public void setLike(boolean like) {
         this.like = like;
+    }
+
+    @NotNull
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "id=" + id +
+                ", imageDog=" + imageDog +
+                ", nameDog='" + nameDog + '\'' +
+                ", rateDog=" + rateDog +
+                ", like=" + like +
+                '}';
     }
 
     @Override

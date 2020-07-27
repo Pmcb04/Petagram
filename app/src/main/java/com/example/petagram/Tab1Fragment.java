@@ -15,8 +15,9 @@ import java.util.Random;
 public class Tab1Fragment extends Fragment {
 
 
-    private MyRecyclerViewAdapter recyclerViewAdapter;
     private ArrayList<Animal> animalNames;
+    private ConstructorAnimal constructorAnimal;
+    private BaseDatos db;
     private Random random = new Random();
     private String[] namesDog = {
             "Laika", "Dexter", "Niebla", "Scooby", "Lola"
@@ -28,19 +29,41 @@ public class Tab1Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_one, container, false);
 
+        constructorAnimal = new ConstructorAnimal(getActivity());
+        db = new BaseDatos(getActivity());
+
+        animalNames = getData(db);
+
         // put animals names and icons y animalNames
         setAnimalNames();
+
+        for (Animal animal: animalNames)
+            System.out.println(animal.toString());
+        System.out.println("AQUI");
+        System.out.println("NULL" + animalNames.isEmpty());
+
+        // put animals in data base
+        setData();
 
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.animals);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewAdapter = new MyRecyclerViewAdapter(getActivity(), animalNames);
+        MyRecyclerViewAdapter recyclerViewAdapter = new MyRecyclerViewAdapter(getActivity(), animalNames);
         recyclerView.setAdapter(recyclerViewAdapter);
 
         return view;
 
     }
 
+    private void setData() {
+        for (Animal animal: animalNames)
+            constructorAnimal.insertarAnimal(db, animal);
+
+    }
+
+    private ArrayList<Animal> getData(BaseDatos db){
+        return db.obtenerTodosLosAnimales();
+    }
 
 
     private void setAnimalNames(){
