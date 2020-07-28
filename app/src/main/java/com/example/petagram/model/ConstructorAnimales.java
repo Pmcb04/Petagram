@@ -1,23 +1,22 @@
-
-package com.example.petagram;
+package com.example.petagram.model;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
-import com.example.petagram.Animal;
 
-import java.io.IOException;
+import com.example.petagram.db.BaseDatos;
+import com.example.petagram.db.ConstantesBaseDatos;
+
 import java.util.ArrayList;
 
 
 /**
  * Created by anahisalgado on 21/04/16.
  */
-public class ConstructorAnimal{
+public class ConstructorAnimales{
 
     private static final int LIKE = 1;
     private Context context;
-    public ConstructorAnimal(Context context) {
+    public ConstructorAnimales(Context context) {
         this.context = context;
     }
 
@@ -27,11 +26,12 @@ public class ConstructorAnimal{
     }
 
 
+
     public void insertarAnimal(BaseDatos db, Animal animal){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ConstantesBaseDatos.TABLE_ANIMAL_IMAGE, animal.getImageDog());
-        contentValues.put(ConstantesBaseDatos.TABLE_ANIMAL_NOMBRE, animal.getNameDog());
-       // contentValues.put(ConstantesBaseDatos.TABLE_ANIMAL_LIKE, animal.isLike());
+        contentValues.put(ConstantesBaseDatos.TABLE_ANIMALS_NAME, animal.getNameDog());
+        contentValues.put(ConstantesBaseDatos.TABLE_ANIMALS_IMAGE, animal.getImageDog());
+        contentValues.put(ConstantesBaseDatos.TABLE_ANIMALS_LIKE, animal.isLike());
 
         db.insertarAnimal(contentValues);
     }
@@ -40,11 +40,11 @@ public class ConstructorAnimal{
         BaseDatos db = new BaseDatos(context);
         ContentValues contentValues = new ContentValues();
         contentValues.put(ConstantesBaseDatos.TABLE_LIKES_ANIMAL_ID_ANIMAL, animal.getId());
-        contentValues.put(ConstantesBaseDatos.TABLE_LIKES_ANIMAL_NUMERO_LIKES, LIKE);
-        db.insertarLikeContacto(contentValues);
+        contentValues.put(ConstantesBaseDatos.TABLE_LIKES_ANIMAL_NUMBER_LIKES, LIKE);
+        db.insertarLikeAnimal(contentValues);
     }
 
-    public int obtenerLikesContacto(Animal animal){
+    public int obtenerLikesAnimal(Animal animal){
         BaseDatos db = new BaseDatos(context);
         return db.obtenerLikesAnimal(animal);
     }

@@ -1,12 +1,12 @@
-package com.example.petagram;
+package com.example.petagram.db;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.example.petagram.Animal;
 
+import com.example.petagram.model.Animal;
 
 import java.util.ArrayList;
 
@@ -24,19 +24,22 @@ public class BaseDatos extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String queryCrearTablaAnimal = "CREATE TABLE " + ConstantesBaseDatos.TABLE_ANIMAL + " ("
-                + ConstantesBaseDatos.TABLE_ANIMAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ConstantesBaseDatos.TABLE_ANIMAL_IMAGE + " INTEGER, "
-                + ConstantesBaseDatos.TABLE_ANIMAL_NOMBRE + " TEXT"
-                + ")";
+        String queryCrearTablaAnimal = "CREATE TABLE " + ConstantesBaseDatos.TABLE_ANIMALS + "(" +
+                ConstantesBaseDatos.TABLE_ANIMALS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                ConstantesBaseDatos.TABLE_ANIMALS_NAME + " TEXT NOT NULL, " +
+                ConstantesBaseDatos.TABLE_ANIMALS_IMAGE + " INTEGER NOT NULL, " +
+                ConstantesBaseDatos.TABLE_ANIMALS_LIKE + " INTEGER DEFAULT 0 NOT NULL" +
+                ")";
+
 
         String queryCrearTablaLikesAnimal = "CREATE TABLE " + ConstantesBaseDatos.TABLE_LIKES_ANIMAL + "(" +
                 ConstantesBaseDatos.TABLE_LIKES_ANIMAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 ConstantesBaseDatos.TABLE_LIKES_ANIMAL_ID_ANIMAL + " INTEGER, " +
-                ConstantesBaseDatos.TABLE_LIKES_ANIMAL_NUMERO_LIKES + " INTEGER, " +
+                ConstantesBaseDatos.TABLE_LIKES_ANIMAL_NUMBER_LIKES + " INTEGER, " +
                 "FOREIGN KEY (" + ConstantesBaseDatos.TABLE_LIKES_ANIMAL_ID_ANIMAL + ") " +
-                "REFERENCES " + ConstantesBaseDatos.TABLE_ANIMAL + "(" + ConstantesBaseDatos.TABLE_ANIMAL_ID + ")" +
+                "REFERENCES " + ConstantesBaseDatos.TABLE_ANIMALS + "(" + ConstantesBaseDatos.TABLE_ANIMALS_ID + ")" +
                 ")";
+
 
         db.execSQL(queryCrearTablaAnimal);
         db.execSQL(queryCrearTablaLikesAnimal);
@@ -44,7 +47,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + ConstantesBaseDatos.TABLE_ANIMAL);
+        db.execSQL("DROP TABLE IF EXISTS " + ConstantesBaseDatos.TABLE_ANIMALS);
         db.execSQL("DROP TABLE IF EXISTS " + ConstantesBaseDatos.TABLE_LIKES_ANIMAL);
         onCreate(db);
     }
@@ -52,31 +55,30 @@ public class BaseDatos extends SQLiteOpenHelper {
     public ArrayList<Animal> obtenerTodosLosAnimales() {
         ArrayList<Animal> animales = new ArrayList<>();
 
-        String query = "SELECT * FROM " + ConstantesBaseDatos.TABLE_ANIMAL;
+        String query = "SELECT * FROM " + ConstantesBaseDatos.TABLE_ANIMALS;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor registros = db.rawQuery(query, null);
 
         while (registros.moveToNext()){
-            Animal animal = new Animal();
-            animal.setId(registros.getInt(0));
-            animal.setNameDog(registros.getString(1));
-            animal.setImageDog(Integer.parseInt(registros.getString(2)));
-            animal.setLike(Boolean.parseBoolean(registros.getString(3)));
+            Animal contactoActual = new Animal();
+            contactoActual.setId(registros.getInt(0));
+            contactoActual.setImageDog(registros.getInt(1));
+            contactoActual.setNameDog(registros.getString(2));
+            contactoActual.setLike(registros.getInt(3) != 0);
 
-            String queryLikes = "SELECT COUNT("+ConstantesBaseDatos.TABLE_LIKES_ANIMAL_NUMERO_LIKES + ") as likes " +
+
+            String queryLikes = "SELECT COUNT("+ConstantesBaseDatos.TABLE_LIKES_ANIMAL_NUMBER_LIKES+") as likes " +
                                 " FROM " + ConstantesBaseDatos.TABLE_LIKES_ANIMAL +
-                                " WHERE " + ConstantesBaseDatos.TABLE_LIKES_ANIMAL_ID + "=" + animal.getId();
+                                " WHERE " + ConstantesBaseDatos.TABLE_LIKES_ANIMAL_ID_ANIMAL + "=" + contactoActual.getId();
 
             Cursor registrosLikes = db.rawQuery(queryLikes, null);
             if (registrosLikes.moveToNext()){
-                animal.setLike(registrosLikes.getInt(0) != 0);
-                animal.setRateDog(registrosLikes.getInt(0));
+                contactoActual.setRateDog(registrosLikes.getInt(0));
             }else {
-                animal.setLike(false);
-                animal.setRateDog(0);
+                contactoActual.setRateDog(0);
             }
 
-            animales.add(animal);
+            animales.add(contactoActual);
 
         }
 
@@ -87,11 +89,11 @@ public class BaseDatos extends SQLiteOpenHelper {
 
     public void insertarAnimal(ContentValues contentValues){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(ConstantesBaseDatos.TABLE_ANIMAL,null, contentValues);
+        db.insert(ConstantesBaseDatos.TABLE_ANIMALS,null, contentValues);
         db.close();
     }
 
-    public void insertarLikeContacto(ContentValues contentValues){
+    public void insertarLikeAnimal(ContentValues contentValues){
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(ConstantesBaseDatos.TABLE_LIKES_ANIMAL, null, contentValues);
         db.close();
@@ -101,7 +103,7 @@ public class BaseDatos extends SQLiteOpenHelper {
     public int obtenerLikesAnimal(Animal animal){
         int likes = 0;
 
-        String query = "SELECT COUNT("+ConstantesBaseDatos.TABLE_LIKES_ANIMAL_NUMERO_LIKES+")" +
+        String query = "SELECT COUNT("+ConstantesBaseDatos.TABLE_LIKES_ANIMAL_NUMBER_LIKES+")" +
                         " FROM " + ConstantesBaseDatos.TABLE_LIKES_ANIMAL +
                         " WHERE " + ConstantesBaseDatos.TABLE_LIKES_ANIMAL_ID_ANIMAL + "="+animal.getId();
 

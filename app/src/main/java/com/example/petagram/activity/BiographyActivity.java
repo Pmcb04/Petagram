@@ -1,4 +1,4 @@
-package com.example.petagram;
+package com.example.petagram.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +11,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.petagram.R;
 
 public class BiographyActivity extends AppCompatActivity {
 
@@ -33,7 +35,7 @@ public class BiographyActivity extends AppCompatActivity {
         twitter = findViewById(R.id.twitter);
         github = findViewById(R.id.github);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

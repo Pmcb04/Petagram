@@ -1,4 +1,4 @@
-package com.example.petagram;
+package com.example.petagram.vista.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,30 +9,40 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.petagram.R;
+import com.example.petagram.adapter.HomeRecyclerViewAdapter;
+import com.example.petagram.model.Animal;
+import com.example.petagram.db.*;
+import com.example.petagram.model.ConstructorAnimales;
+
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Tab1Fragment extends Fragment {
+public class HomeFragment extends Fragment {
 
 
     private ArrayList<Animal> animalNames;
-    private ConstructorAnimal constructorAnimal;
+    private ConstructorAnimales constructorAnimal;
     private BaseDatos db;
     private Random random = new Random();
     private String[] namesDog = {
             "Laika", "Dexter", "Niebla", "Scooby", "Lola"
     };
 
+    public HomeFragment(){
+
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_one, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        constructorAnimal = new ConstructorAnimal(getActivity());
+        constructorAnimal = new ConstructorAnimales(getActivity());
         db = new BaseDatos(getActivity());
 
-        animalNames = getData(db);
+       // animalNames = getData(db);
 
         // put animals names and icons y animalNames
         setAnimalNames();
@@ -48,7 +58,7 @@ public class Tab1Fragment extends Fragment {
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.animals);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        MyRecyclerViewAdapter recyclerViewAdapter = new MyRecyclerViewAdapter(getActivity(), animalNames);
+        HomeRecyclerViewAdapter recyclerViewAdapter = new HomeRecyclerViewAdapter(getActivity(), animalNames);
         recyclerView.setAdapter(recyclerViewAdapter);
 
         return view;

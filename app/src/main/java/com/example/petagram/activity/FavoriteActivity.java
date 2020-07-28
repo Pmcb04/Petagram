@@ -1,4 +1,4 @@
-package com.example.petagram;
+package com.example.petagram.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,12 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.petagram.adapter.HomeRecyclerViewAdapter;
+import com.example.petagram.R;
+import com.example.petagram.model.Animal;
+
 import java.util.ArrayList;
 
 public class FavoriteActivity extends AppCompatActivity  {
 
 
-    MyRecyclerViewAdapter adapter;
+    HomeRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +30,7 @@ public class FavoriteActivity extends AppCompatActivity  {
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.animals);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MyRecyclerViewAdapter(this, favorites);
+        adapter = new HomeRecyclerViewAdapter(this, favorites);
         recyclerView.setAdapter(adapter);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

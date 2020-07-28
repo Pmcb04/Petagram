@@ -1,4 +1,4 @@
-package com.example.petagram;
+package com.example.petagram.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,11 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.petagram.R;
+import com.example.petagram.adapter.TabPageAdapter;
+import com.example.petagram.model.Animal;
+import com.example.petagram.vista.fragment.HomeFragment;
+import com.example.petagram.vista.fragment.UserFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -28,7 +33,7 @@ public class MainActivity extends AppCompatActivity{
     public static TextView fav;
     private ImageView star;
     private Toolbar toolbar;
-    private TabAdapter tabAdapter;
+    private TabPageAdapter tabPageAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -53,8 +58,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-
-
         //Adding toolbar to the activity
         addToolbar();
 
@@ -74,11 +77,11 @@ public class MainActivity extends AppCompatActivity{
     private void addToolbar(){
         setSupportActionBar(toolbar);
 
-        tabAdapter = new TabAdapter(getSupportFragmentManager());
-        tabAdapter.addFragment(new Tab1Fragment(), "");
-        tabAdapter.addFragment(new Tab2Fragment(), "");
+        tabPageAdapter = new TabPageAdapter(getSupportFragmentManager());
+        tabPageAdapter.addFragment(new HomeFragment(), "");
+        tabPageAdapter.addFragment(new UserFragment(), "");
 
-        viewPager.setAdapter(tabAdapter);
+        viewPager.setAdapter(tabPageAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
     }

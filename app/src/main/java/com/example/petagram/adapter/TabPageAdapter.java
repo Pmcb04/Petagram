@@ -1,4 +1,4 @@
-package com.example.petagram;
+package com.example.petagram.adapter;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -9,12 +9,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-public class TabAdapter extends FragmentStatePagerAdapter {
+public class TabPageAdapter extends FragmentStatePagerAdapter {
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    TabAdapter(FragmentManager fm) {
+    public TabPageAdapter(FragmentManager fm) {
         super(fm);
     }
     @NotNull

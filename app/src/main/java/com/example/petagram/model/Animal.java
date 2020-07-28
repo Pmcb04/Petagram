@@ -1,17 +1,17 @@
-package com.example.petagram;
+package com.example.petagram.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.jetbrains.annotations.NotNull;
 
-class Animal implements Parcelable {
+public class Animal implements Parcelable {
 
     private int id;
     private int imageDog;
     private String nameDog;
     private int rateDog;
-    private boolean like;
+    private int like;
 
     public Animal() {
 
@@ -21,7 +21,7 @@ class Animal implements Parcelable {
         this.imageDog = imageDog;
         this.nameDog = nameDog;
         this.rateDog = rateDog;
-        like = false;
+        like = 0;
     }
 
 
@@ -29,7 +29,7 @@ class Animal implements Parcelable {
         imageDog = in.readInt();
         nameDog = in.readString();
         rateDog = in.readInt();
-        like = false;
+        like = 0;
     }
 
     public static final Creator<Animal> CREATOR = new Creator<Animal>() {
@@ -59,7 +59,7 @@ class Animal implements Parcelable {
         return rateDog;
     }
 
-    public boolean isLike() { return like; }
+    public boolean isLike() { return like != 0; }
 
     public void setId(int id) {
         this.id = id;
@@ -78,7 +78,7 @@ class Animal implements Parcelable {
     }
 
     public void setLike(boolean like) {
-        this.like = like;
+        this.like = like ? 1 : 0;
     }
 
     @NotNull

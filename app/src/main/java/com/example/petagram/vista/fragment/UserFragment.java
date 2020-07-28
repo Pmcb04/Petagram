@@ -1,4 +1,4 @@
-package com.example.petagram;
+package com.example.petagram.vista.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,21 +9,24 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
+
+import com.example.petagram.R;
+import com.example.petagram.adapter.UserRecyclerViewAdapter;
+import com.example.petagram.model.Animal;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Tab2Fragment extends Fragment {
+public class UserFragment extends Fragment {
 
-    private RecyclerViewAdapterFragement recyclerViewAdapter;
+    private UserRecyclerViewAdapter recyclerViewAdapter;
     private ArrayList<Animal> animalNames;
     private Random random = new Random();
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_two, container, false);
+        View view = inflater.inflate(R.layout.fragment_user, container, false);
 
         // put animals names and icons y animalNames
         setAnimalNames();
@@ -31,7 +34,7 @@ public class Tab2Fragment extends Fragment {
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.animals);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewAdapter = new RecyclerViewAdapterFragement(getActivity(), animalNames);
+        recyclerViewAdapter = new UserRecyclerViewAdapter(getActivity(), animalNames);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         recyclerView.setAdapter(recyclerViewAdapter);
 

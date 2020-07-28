@@ -1,4 +1,4 @@
-package com.example.petagram;
+package com.example.petagram.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -7,18 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.petagram.R;
+import com.example.petagram.model.Animal;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.example.petagram.MainActivity.fav;
-import static com.example.petagram.MainActivity.favorites;
-import static com.example.petagram.MainActivity.numberFavorites;
 
-public class RecyclerViewAdapterFragement extends RecyclerView.Adapter<RecyclerViewAdapterFragement.ViewHolder> {
+public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerViewAdapter.ViewHolder> {
 
     private Context context;
     private List<Animal> data;
@@ -26,7 +26,7 @@ public class RecyclerViewAdapterFragement extends RecyclerView.Adapter<RecyclerV
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    RecyclerViewAdapterFragement(Context context, List<Animal> data) {
+    public UserRecyclerViewAdapter(Context context, ArrayList<Animal> data) {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.data = data;
