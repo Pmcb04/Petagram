@@ -8,4 +8,8 @@
         <item android:id="@+id/action_acerca"
             android:title="@string/action_acerca"
             app:showAsAction="never" />
+
+        <item android:id="@+id/action_user"
+            android:title="@string/action_user"
+            app:showAsAction="never" />
 </menu>

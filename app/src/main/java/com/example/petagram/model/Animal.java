@@ -3,6 +3,8 @@ package com.example.petagram.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.squareup.picasso.Picasso;
+
 import org.jetbrains.annotations.NotNull;
 
 public class Animal implements Parcelable {
@@ -10,6 +12,7 @@ public class Animal implements Parcelable {
     private int id;
     private int imageDog;
     private String nameDog;
+    private String imageDogURL;
     private int rateDog;
     private int like;
 
@@ -61,12 +64,20 @@ public class Animal implements Parcelable {
 
     public boolean isLike() { return like != 0; }
 
+    public String getImageDogURL() {
+        return imageDogURL;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
     public void setImageDog(int imageDog) {
         this.imageDog = imageDog;
+    }
+
+    public void setImageDogURL(String imageDogURL) {
+        this.imageDogURL = imageDogURL;
     }
 
     public void setNameDog(String nameDog) {
