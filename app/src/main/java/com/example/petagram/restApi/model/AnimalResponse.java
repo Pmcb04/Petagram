@@ -12,7 +12,7 @@ public class AnimalResponse {
         return animales;
     }
 
-    public void setContactos(ArrayList<Animal> contactos) {
-        this.animales = contactos;
+    public void setContactos(ArrayList<Animal> animales) {
+        this.animales = animales;
     }
 }

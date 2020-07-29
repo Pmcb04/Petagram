@@ -21,4 +21,7 @@
     <string name="linkedln">linkedin.com/in/pedromiguelcarmona/</string>
     <string name="instagram">instagram.com/pmcb04/</string>
     <string name="action_user">Configurar Cuenta</string>
+    <string name="user_instagram">Escribe un usuario</string>
+    <string name="save_user">Guardar usuario</string>
+    <string name="error_user">No se ha insertado ningun usuario</string>
 </resources>

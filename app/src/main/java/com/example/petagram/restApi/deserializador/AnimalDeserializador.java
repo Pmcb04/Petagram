@@ -15,31 +15,31 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class ContactoDeserializador implements JsonDeserializer<AnimalResponse> {
+public class AnimalDeserializador implements JsonDeserializer<AnimalResponse> {
     @Override
     public AnimalResponse deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         Gson gson = new Gson();
         AnimalResponse animalResponse = gson.fromJson(json, AnimalResponse.class);
-        JsonArray contactoResponseData = json.getAsJsonObject().getAsJsonArray(JsonKeys.MEDIA_RESPONSE_ARRAY);
+        JsonArray animalResponseData = json.getAsJsonObject().getAsJsonArray(JsonKeys.MEDIA_RESPONSE_ARRAY);
 
-        animalResponse.setContactos(deserializarContactoDeJson(contactoResponseData));
+        animalResponse.setContactos(deserializarAnimalDeJson(animalResponseData));
         return animalResponse;
     }
 
-    private ArrayList<Animal> deserializarContactoDeJson(JsonArray contactoResponseData){
+    private ArrayList<Animal> deserializarAnimalDeJson(JsonArray contactoResponseData){
         ArrayList<Animal> animales = new ArrayList<>();
         for (int i = 0; i < contactoResponseData.size() ; i++) {
-            JsonObject contactoResponseDataObject = contactoResponseData.get(i).getAsJsonObject();
+            JsonObject animalResponseDataObject = contactoResponseData.get(i).getAsJsonObject();
 
-            JsonObject userJson     = contactoResponseDataObject.getAsJsonObject(JsonKeys.USER);
+            JsonObject userJson     = animalResponseDataObject.getAsJsonObject(JsonKeys.USER);
             String id               = userJson.get(JsonKeys.USER_ID).getAsString();
             String nombreCompleto   = userJson.get(JsonKeys.USER_FULLNAME).getAsString();
 
-            JsonObject imageJson            = contactoResponseDataObject.getAsJsonObject(JsonKeys.MEDIA_IMAGES);
+            JsonObject imageJson            = animalResponseDataObject.getAsJsonObject(JsonKeys.MEDIA_IMAGES);
             JsonObject stdResolutionJson    = imageJson.getAsJsonObject(JsonKeys.MEDIA_STANDARD_RESOLUTION);
             String urlFoto                  = stdResolutionJson.get(JsonKeys.MEDIA_URL).getAsString();
 
-            JsonObject likesJson = contactoResponseDataObject.getAsJsonObject(JsonKeys.MEDIA_LIKES);
+            JsonObject likesJson = animalResponseDataObject.getAsJsonObject(JsonKeys.MEDIA_LIKES);
             int likes = likesJson.get(JsonKeys.MEDIA_LIKES_COUNT).getAsInt();
 
             Animal animalActual = new Animal();

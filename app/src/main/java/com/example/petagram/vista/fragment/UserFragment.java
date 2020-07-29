@@ -13,13 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.petagram.R;
 import com.example.petagram.adapter.UserRecyclerViewAdapter;
 import com.example.petagram.model.Animal;
+import com.example.petagram.presentador.IRecylerViewUserPresenter;
+import com.example.petagram.presentador.RecyclerViewUserPresenter;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class UserFragment extends Fragment {
+public class UserFragment extends Fragment implements IRecyclerViewUser {
 
     private UserRecyclerViewAdapter recyclerViewAdapter;
+    private RecyclerView userRecyclerView;
+    private IRecylerViewUserPresenter userPresenter;
     private ArrayList<Animal> animalNames;
     private Random random = new Random();
 
@@ -32,19 +36,13 @@ public class UserFragment extends Fragment {
         setAnimalNames();
 
         // set up the RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.animals);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewAdapter = new UserRecyclerViewAdapter(getActivity(), animalNames);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        recyclerView.setAdapter(recyclerViewAdapter);
+        userRecyclerView = view.findViewById(R.id.animals);
+        userPresenter = new RecyclerViewUserPresenter(this, getContext());
 
 
         return view;
 
     }
-
-
-
 
     private void setAnimalNames(){
         animalNames = new ArrayList<>();
@@ -85,4 +83,26 @@ public class UserFragment extends Fragment {
     }
 
 
+    @Override
+    public void generarLinearLayoutVertical() {
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        userRecyclerView.setLayoutManager(llm);
+    }
+
+    @Override
+    public void generarGridLayout() {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        userRecyclerView.setLayoutManager(gridLayoutManager);
+    }
+
+    @Override
+    public UserRecyclerViewAdapter crearAdaptador(ArrayList<Animal> animales) {
+        return new UserRecyclerViewAdapter(getActivity(), animales);
+    }
+
+    @Override
+    public void inicializarAdaptadorRV(UserRecyclerViewAdapter adaptador) {
+        userRecyclerView.setAdapter(adaptador);
+    }
 }

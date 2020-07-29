@@ -26,8 +26,8 @@ public class HomeFragment extends Fragment implements IRecyclerViewHome {
     private ConstructorAnimales constructorAnimal;
     private BaseDatos db;
     private Random random = new Random();
-    RecyclerView recyclerView;
-    private RecyclerViewHomePresenter presenter;
+    private RecyclerView homeRecyclerView;
+    private RecyclerViewHomePresenter homePresenter;
     private String[] namesDog = {
             "Laika", "Dexter", "Niebla", "Scooby", "Lola"
     };
@@ -45,22 +45,21 @@ public class HomeFragment extends Fragment implements IRecyclerViewHome {
         constructorAnimal = new ConstructorAnimales(getActivity());
         db = new BaseDatos(getActivity());
 
-        animalNames = getData(db);
+        // get data to database
+        //animalNames = getData(db);
 
         // put animals names and icons y animalNames
-       // setAnimalNames();
+        setAnimalNames();
 
         for (Animal animal: animalNames)
             System.out.println(animal.toString());
-        System.out.println("AQUI");
-        System.out.println("NULL " + animalNames.isEmpty());
 
         // put animals in data base
         //setData();
 
         // set up the presenter
-        recyclerView = view.findViewById(R.id.animals);
-        presenter = new RecyclerViewHomePresenter(this, getActivity());
+        homeRecyclerView = view.findViewById(R.id.animals);
+        homePresenter = new RecyclerViewHomePresenter(this, getActivity());
 
         return view;
 
@@ -120,7 +119,7 @@ public class HomeFragment extends Fragment implements IRecyclerViewHome {
     public void generarLinearLayoutVertical() {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
+        homeRecyclerView.setLayoutManager(llm);
     }
 
     @Override
@@ -130,6 +129,6 @@ public class HomeFragment extends Fragment implements IRecyclerViewHome {
 
     @Override
     public void inicializarAdaptadorRV(HomeRecyclerViewAdapter adaptador) {
-        recyclerView.setAdapter(adaptador);
+        homeRecyclerView.setAdapter(adaptador);
     }
 }

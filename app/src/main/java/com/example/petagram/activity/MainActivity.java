@@ -5,11 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -31,11 +28,13 @@ public class MainActivity extends AppCompatActivity{
     public static ArrayList<Animal> favorites;
     public static int numberFavorites = 0;
     public static TextView fav;
+    private static String user_insta;
     private ImageView star;
     private Toolbar toolbar;
     private TabPageAdapter tabPageAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private final int INSTAGRAM = 0;
 
 
     @Override
@@ -123,6 +122,10 @@ public class MainActivity extends AppCompatActivity{
                 intent = new Intent(MainActivity.this, ContactActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.action_user:
+                intent = new Intent(MainActivity.this, InstagramActivity.class);
+                startActivityForResult(intent, INSTAGRAM);
+                break;
             default:
                 System.out.println("Estoy en default");
         }
@@ -131,4 +134,17 @@ public class MainActivity extends AppCompatActivity{
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == INSTAGRAM) && (resultCode == RESULT_OK)) {
+            user_insta = data.getDataString();
+            System.out.println(user_insta);
+        }
+    }
+
+
 }
+
