@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class FavoriteActivity extends AppCompatActivity  {
 
-
     HomeRecyclerViewAdapter adapter;
 
     @Override

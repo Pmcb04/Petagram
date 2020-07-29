@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BiographyActivity"></activity>
-        <activity android:name=".ContactActivity" />
-        <activity android:name=".FavoriteActivity" />
+        <activity android:name=".activity.BiographyActivity" />
+        <activity android:name=".activity.ContactActivity" />
+        <activity android:name=".activity.FavoriteActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

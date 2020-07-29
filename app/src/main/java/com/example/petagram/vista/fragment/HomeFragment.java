@@ -42,18 +42,18 @@ public class HomeFragment extends Fragment {
         constructorAnimal = new ConstructorAnimales(getActivity());
         db = new BaseDatos(getActivity());
 
-       // animalNames = getData(db);
+        animalNames = getData(db);
 
         // put animals names and icons y animalNames
-        setAnimalNames();
+       // setAnimalNames();
 
         for (Animal animal: animalNames)
             System.out.println(animal.toString());
         System.out.println("AQUI");
-        System.out.println("NULL" + animalNames.isEmpty());
+        System.out.println("NULL " + animalNames.isEmpty());
 
         // put animals in data base
-        setData();
+        //setData();
 
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.animals);

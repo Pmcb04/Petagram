@@ -27,8 +27,8 @@ public class BaseDatos extends SQLiteOpenHelper {
         String queryCrearTablaAnimal = "CREATE TABLE " + ConstantesBaseDatos.TABLE_ANIMALS + "(" +
                 ConstantesBaseDatos.TABLE_ANIMALS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 ConstantesBaseDatos.TABLE_ANIMALS_NAME + " TEXT NOT NULL, " +
-                ConstantesBaseDatos.TABLE_ANIMALS_IMAGE + " INTEGER NOT NULL, " +
-                ConstantesBaseDatos.TABLE_ANIMALS_LIKE + " INTEGER DEFAULT 0 NOT NULL" +
+                ConstantesBaseDatos.TABLE_ANIMALS_IMAGE + " INTEGER NOT NULL," +
+                ConstantesBaseDatos.TABLE_ANIMALS_LIKE + "INTEGER DEFAULT 0 NOT NULL" +
                 ")";
 
 
@@ -62,8 +62,8 @@ public class BaseDatos extends SQLiteOpenHelper {
         while (registros.moveToNext()){
             Animal contactoActual = new Animal();
             contactoActual.setId(registros.getInt(0));
-            contactoActual.setImageDog(registros.getInt(1));
-            contactoActual.setNameDog(registros.getString(2));
+            contactoActual.setNameDog(registros.getString(1));
+            contactoActual.setImageDog(registros.getInt(2));
             contactoActual.setLike(registros.getInt(3) != 0);
 
 

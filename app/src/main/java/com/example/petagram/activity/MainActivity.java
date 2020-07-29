@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
-    public static ArrayList<Animal> favorites = new ArrayList<>();
+    public static ArrayList<Animal> favorites;
     public static int numberFavorites = 0;
     public static TextView fav;
     private ImageView star;
@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity{
 
         //Initializing components
         initComponents();
-
 
         fav.setText(numberFavorites + "");
 
@@ -72,6 +71,7 @@ public class MainActivity extends AppCompatActivity{
         star = findViewById(R.id.star);
         tabLayout = findViewById(R.id.tabLayout);
         toolbar = findViewById(R.id.toolbar);
+        favorites = new ArrayList<>();
     }
 
     private void addToolbar(){
