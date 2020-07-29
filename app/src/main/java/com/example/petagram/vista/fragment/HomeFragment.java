@@ -14,17 +14,20 @@ import com.example.petagram.adapter.HomeRecyclerViewAdapter;
 import com.example.petagram.model.Animal;
 import com.example.petagram.db.*;
 import com.example.petagram.model.ConstructorAnimales;
+import com.example.petagram.presentador.RecyclerViewHomePresenter;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements IRecyclerViewHome {
 
 
     private ArrayList<Animal> animalNames;
     private ConstructorAnimales constructorAnimal;
     private BaseDatos db;
     private Random random = new Random();
+    RecyclerView recyclerView;
+    private RecyclerViewHomePresenter presenter;
     private String[] namesDog = {
             "Laika", "Dexter", "Niebla", "Scooby", "Lola"
     };
@@ -55,11 +58,9 @@ public class HomeFragment extends Fragment {
         // put animals in data base
         //setData();
 
-        // set up the RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.animals);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        HomeRecyclerViewAdapter recyclerViewAdapter = new HomeRecyclerViewAdapter(getActivity(), animalNames);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        // set up the presenter
+        recyclerView = view.findViewById(R.id.animals);
+        presenter = new RecyclerViewHomePresenter(this, getActivity());
 
         return view;
 
@@ -115,4 +116,20 @@ public class HomeFragment extends Fragment {
         return R.drawable.dog1;
     }
 
+    @Override
+    public void generarLinearLayoutVertical() {
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+    }
+
+    @Override
+    public HomeRecyclerViewAdapter crearAdaptador(ArrayList<Animal> contactos) {
+        return new HomeRecyclerViewAdapter(getActivity(), animalNames);
+    }
+
+    @Override
+    public void inicializarAdaptadorRV(HomeRecyclerViewAdapter adaptador) {
+        recyclerView.setAdapter(adaptador);
+    }
 }
